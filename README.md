@@ -1,4 +1,4 @@
-cpporb_bridge
+# orblibcpp
 =============
 
-Bridge for Officine Robotiche boards in C++
+Officine Robotiche Boards C++ Library for serial communication
