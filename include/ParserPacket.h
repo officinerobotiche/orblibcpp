@@ -65,17 +65,17 @@ public:
     packet_t encoder(information_packet_t *list_send, size_t len);
     packet_t encoder(information_packet_t list_send);
 
-    information_packet_t createPacket(unsigned char command, unsigned char option, unsigned char type = HASHMAP_DEFAULT, abstract_packet_t * packet = NULL);
-    information_packet_t createDataPacket(unsigned char command, unsigned char type, abstract_packet_t * packet);
+    information_packet_t createPacket(unsigned char command, unsigned char option, unsigned char type = HASHMAP_DEFAULT, abstract_message_u * packet = NULL);
+    information_packet_t createDataPacket(unsigned char command, unsigned char type, abstract_message_u * packet);
 
-    void addCallback(const boost::function<void (const unsigned char&, const abstract_packet_t*) >& callback, unsigned char type=HASHMAP_DEFAULT);
-    void addErrorCallback(const boost::function<void (const unsigned char&, const abstract_packet_t*) >& callback);
+    void addCallback(const boost::function<void (const unsigned char&, const abstract_message_u*) >& callback, unsigned char type=HASHMAP_DEFAULT);
+    void addErrorCallback(const boost::function<void (const unsigned char&, const abstract_message_u*) >& callback);
 
-    template <class T> void addCallback(void(T::*fp)(const unsigned char&, const abstract_packet_t*), T* obj, unsigned char type=HASHMAP_DEFAULT) {
+    template <class T> void addCallback(void(T::*fp)(const unsigned char&, const abstract_message_u*), T* obj, unsigned char type=HASHMAP_DEFAULT) {
         addCallback(boost::bind(fp, obj, _1, _2), type);
     }
     
-    template <class T> void addErrorCallback(void(T::*fp)(const unsigned char&, const abstract_packet_t*), T* obj) {
+    template <class T> void addErrorCallback(void(T::*fp)(const unsigned char&, const abstract_message_u*), T* obj) {
         addErrorCallback(boost::bind(fp, obj, _1, _2));
     }
 
