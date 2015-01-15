@@ -30,7 +30,7 @@ public:
     }
 
     void sendAsyncPacket(const packet_t* packet) {
-        for (int i = 0; i < count; ++i) {
+        for (unsigned int i = 0; i < count; ++i) {
             callback_t callback = async_functions[i];
             if (callback) callback(packet);
         }
@@ -44,7 +44,7 @@ public:
     }
 
     void clearAllAsyncCallback() {
-        for (int i = 0; i < count; ++i) {
+        for (unsigned int i = 0; i < count; ++i) {
             callback_t callback = async_functions[i];
             callback.clear();
         }
@@ -84,13 +84,12 @@ void PacketSerial::writePacket(packet_t packet, unsigned char header) {
      *    1        1 -> n
      */
 
-    int i;
     size_t size = HEAD_PKG + packet.length + 1;
     unsigned char BufferTx[size];
     BufferTx[0] = header;
     BufferTx[1] = packet.length;
 
-    for (i = 0; i < packet.length; i++) {
+    for (unsigned i = 0; i < packet.length; i++) {
         BufferTx[i + HEAD_PKG] = packet.buffer[i];
     }
 
@@ -104,7 +103,7 @@ void PacketSerial::readCallback(const char *data, size_t len) {
     //0 - Read Header
     //1 - Read Length if true is correct length packet
     //2 - Read Data if n+1 is checksum return true
-    for (int i = 0; i < len; ++i) {
+    for (unsigned int i = 0; i < len; ++i) {
         try {
             if (decode_pkgs(data[i])) {
                 if (async) {
