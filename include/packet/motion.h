@@ -189,7 +189,7 @@ typedef uint8_t enable_motor_t;
 #define HASHMAP_MOTION_NUMBER 15
 
 // Definition on communication/parsing_packet.c
-//static unsigned int hashmap_motion[HASHMAP_MOTION_NUMBER];
+static unsigned int hashmap_motion[HASHMAP_MOTION_NUMBER];
 
 /**
  * Table with convertion number message in a length for data messages

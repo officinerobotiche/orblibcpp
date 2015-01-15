@@ -169,7 +169,7 @@ typedef union abstract_message {
     parameter_system_t parameter_system;
     process_buffer_t process_name;
 #ifdef MOTION_CONTROL
-    ABSTRACT_PACKET_MOTION
+    ABSTRACT_MESSAGE_MOTION
 #endif
 #ifdef NAVIGATION_BOARD
     ABSTRACT_PACKET_NAVIGATION
