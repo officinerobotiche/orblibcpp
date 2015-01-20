@@ -174,7 +174,7 @@ typedef uint8_t state_controller_t;
         parameter_unicycle_t parameter_unicycle; \
         parameter_motor_t parameter_motor;       \
         velocity_t velocity;                     \
-        motor_control_t motor_control_t;         \
+        motor_control_t motor_control;         \
         state_controller_t enable;               \
         motor_t motor;                           \
         constraint_t constraint;                 \
