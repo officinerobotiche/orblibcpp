@@ -25,6 +25,22 @@
 #define BUFFER_ODOMETRY 100
 
 /**
+ * Define to select state of control for single motor
+ */
+#define STATE_CONTROL_DISABLE 0
+#define STATE_CONTROL_DIRECT 1
+#define STATE_CONTROL_POSITION 2
+#define STATE_CONTROL_VELOCITY 3
+#define STATE_CONTROL_TORQUE 4
+
+/**
+ * Define to select high state of control
+ */
+#define STATE_CONTROL_HIGH_DISABLE 0
+#define STATE_CONTROL_HIGH_VELOCITY 1
+#define STATE_CONTROL_HIGH_CONFIGURATION 2
+
+/**
  * Message for emergency configuration
  * - time to stop
  * - timeout to start emergency stop motors
