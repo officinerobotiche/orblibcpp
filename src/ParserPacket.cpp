@@ -15,6 +15,7 @@
 
 #include "ParserPacket.h"
 #include "packet/motion.h"
+#include <boost/array.hpp>
 
 using namespace std;
 using namespace boost;

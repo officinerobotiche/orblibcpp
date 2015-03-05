@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <iostream>
 #include <boost/bind.hpp>
+#include <boost/array.hpp>
 
 using namespace std;
 using namespace boost;
@@ -62,6 +63,10 @@ PacketSerial::PacketSerial() : AsyncSerial(), async(false), data_ready(false), p
     pkg_parse = &PacketSerial::pkg_header;
     setReadCallback(boost::bind(&PacketSerial::readCallback, this, _1, _2));
     initMapError();
+
+    BufferTxSize = 64;
+    BufferTx = new unsigned char[BufferTxSize];
+
 }
 
 PacketSerial::PacketSerial(const std::string& devname,
@@ -85,7 +90,14 @@ void PacketSerial::writePacket(packet_t packet, unsigned char header) {
      */
 
     size_t size = HEAD_PKG + packet.length + 1;
-    unsigned char BufferTx[size];
+
+    if( size > BufferTxSize )
+    {
+        BufferTxSize = size;
+        delete [] BufferTx;
+        BufferTx = new unsigned char[BufferTxSize];
+    }
+
     BufferTx[0] = header;
     BufferTx[1] = packet.length;
 
@@ -224,4 +236,6 @@ unsigned char PacketSerial::pkg_checksum(volatile unsigned char* Buffer, int Fir
 
 PacketSerial::~PacketSerial() {
     clearReadCallback();
+
+    delete [] BufferTx;
 }

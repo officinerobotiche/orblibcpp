@@ -29,7 +29,7 @@ typedef struct sensor {
 typedef float humidity_t;
 #define LNG_HUMIDITY sizeof(humidity_t)
 
-typedef struct infrared {
+typedef struct _infrared {
     float infrared[NUMBER_INFRARED];
 } infrared_t;
 #define LNG_INFRARED sizeof(infrared_t)

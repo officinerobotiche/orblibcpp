@@ -23,3 +23,12 @@ linux {
         -lboost_system \
         -lboost_thread
 }
+
+windows {
+    INCLUDEPATH += C:/devel/boost_1_57_0
+
+    LIBS += -LC:\devel/boost_1_57_0/stage\lib \
+        -llibboost_system-vc110-mt-1_57 \
+        -llibboost_thread-vc110-mt-1_57
+
+}

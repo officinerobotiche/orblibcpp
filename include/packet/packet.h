@@ -124,7 +124,7 @@ typedef struct process_buffer {
  * * time for parsing packet
  * * list for others processes
  */
-typedef struct process {
+typedef struct _process {
     int16_t length;
     int16_t idle;
     int16_t parse_packet;

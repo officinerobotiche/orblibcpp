@@ -154,6 +154,9 @@ private:
     boost::condition_variable readPacketCond;
 
     boost::shared_ptr<AsyncPacketImpl> pkgimpl;
+
+    unsigned char* BufferTx;
+    int BufferTxSize;
 };
 
 #endif	/* PACKETSERIAL_H */
