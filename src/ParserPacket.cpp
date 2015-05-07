@@ -14,6 +14,8 @@
  */
 
 #include "ParserPacket.h"
+#include "packet/motion.h"
+#include <boost/array.hpp>
 
 using namespace std;
 using namespace boost;
@@ -70,7 +72,7 @@ private:
     typedef boost::function<void (const unsigned char&, const abstract_message_u*) > callback_data_packet_t;
 
     void clearCallback(unsigned int* counter, boost::array<callback_data_packet_t, NUMBER_CALLBACK >& array) {
-        for (int i = 0; i < (*counter); ++i) {
+        for (unsigned int i = 0; i < (*counter); ++i) {
             callback_data_packet_t callback = array[i];
             callback.clear();
         }
@@ -93,7 +95,7 @@ private:
     }
 
     void sendDataCallBack(unsigned int counter, unsigned char& command, abstract_message_u* packet, boost::array<callback_data_packet_t, NUMBER_CALLBACK > array) {
-        for (int i = 0; i < counter; ++i) {
+        for (unsigned int i = 0; i < counter; ++i) {
             callback_data_packet_t callback = array[i];
             if (callback)
                 callback(command, packet);

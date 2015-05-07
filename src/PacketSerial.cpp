@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <iostream>
 #include <boost/bind.hpp>
+#include <boost/array.hpp>
 
 using namespace std;
 using namespace boost;
@@ -30,7 +31,7 @@ public:
     }
 
     void sendAsyncPacket(const packet_t* packet) {
-        for (int i = 0; i < count; ++i) {
+        for (unsigned int i = 0; i < count; ++i) {
             callback_t callback = async_functions[i];
             if (callback) callback(packet);
         }
@@ -44,7 +45,7 @@ public:
     }
 
     void clearAllAsyncCallback() {
-        for (int i = 0; i < count; ++i) {
+        for (unsigned int i = 0; i < count; ++i) {
             callback_t callback = async_functions[i];
             callback.clear();
         }
@@ -62,6 +63,10 @@ PacketSerial::PacketSerial() : AsyncSerial(), async(false), data_ready(false), p
     pkg_parse = &PacketSerial::pkg_header;
     setReadCallback(boost::bind(&PacketSerial::readCallback, this, _1, _2));
     initMapError();
+
+    BufferTxSize = 64;
+    BufferTx = new unsigned char[BufferTxSize];
+
 }
 
 PacketSerial::PacketSerial(const std::string& devname,
@@ -84,13 +89,19 @@ void PacketSerial::writePacket(packet_t packet, unsigned char header) {
      *    1        1 -> n
      */
 
-    int i;
     size_t size = HEAD_PKG + packet.length + 1;
-    unsigned char BufferTx[size];
+
+    if( size > BufferTxSize )
+    {
+        BufferTxSize = size;
+        delete [] BufferTx;
+        BufferTx = new unsigned char[BufferTxSize];
+    }
+
     BufferTx[0] = header;
     BufferTx[1] = packet.length;
 
-    for (i = 0; i < packet.length; i++) {
+    for (unsigned i = 0; i < packet.length; i++) {
         BufferTx[i + HEAD_PKG] = packet.buffer[i];
     }
 
@@ -104,7 +115,7 @@ void PacketSerial::readCallback(const char *data, size_t len) {
     //0 - Read Header
     //1 - Read Length if true is correct length packet
     //2 - Read Data if n+1 is checksum return true
-    for (int i = 0; i < len; ++i) {
+    for (unsigned int i = 0; i < len; ++i) {
         try {
             if (decode_pkgs(data[i])) {
                 if (async) {
@@ -225,4 +236,6 @@ unsigned char PacketSerial::pkg_checksum(volatile unsigned char* Buffer, int Fir
 
 PacketSerial::~PacketSerial() {
     clearReadCallback();
+
+    delete [] BufferTx;
 }
