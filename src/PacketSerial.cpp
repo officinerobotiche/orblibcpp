@@ -79,6 +79,9 @@ PacketSerial::PacketSerial(const std::string& devname,
     pkg_parse = &PacketSerial::pkg_header;
     setReadCallback(boost::bind(&PacketSerial::readCallback, this, _1, _2));
     initMapError();
+
+    BufferTxSize = 64;
+    BufferTx = new unsigned char[BufferTxSize];
 }
 
 void PacketSerial::writePacket(packet_t packet, unsigned char header) {
@@ -90,7 +93,6 @@ void PacketSerial::writePacket(packet_t packet, unsigned char header) {
      */
 
     size_t size = HEAD_PKG + packet.length + 1;
-
     if( size > BufferTxSize )
     {
         BufferTxSize = size;

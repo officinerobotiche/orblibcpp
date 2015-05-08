@@ -105,7 +105,7 @@ typedef struct _motor_parameter {
 /**
  * Message for emergency configuration
  * - [s]  Time to put velocity motor to zero
- * - [s]  Time to disable bridge (TODO after the speed reaches zero?)
+ * - [s]  Time to disable bridge after the speed reaches velzer
  * - [ms] Timeout to start emergency stop of the motors
  */
 typedef struct _motor_emergency {
