@@ -11,7 +11,8 @@ HEADERS += \
     $$PATH/include/ParserPacket.cpp \
     $$PATH/include/packet/packet.h \
     $$PATH/include/packet/motion.h \
-    $$PATH/include/packet/navigation.h
+    $$PATH/include/packet/navigation.h \
+    ../../orblibcpp/orblibcpp/include/packet/motor.h
 
 SOURCES += \
     $$PATH/src/AsyncSerial.cpp \

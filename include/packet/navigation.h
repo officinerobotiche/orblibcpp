@@ -1,16 +1,8 @@
 /*
- * Copyright (C) 2014 Officine Robotiche
- * Author: Raffaello Bonghi
- * email:  raffaello.bonghi@officinerobotiche.it
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Lesser General Public License
- * (LGPL) version 2.1 which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/lgpl-2.1.html
+ * File:   navigation.h
+ * Author: raffaello
  *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
+ * Created on 27 September 2013, 18:47
  */
 
 #ifndef NAVIGATION_H
@@ -29,7 +21,7 @@ typedef struct sensor {
 typedef float humidity_t;
 #define LNG_HUMIDITY sizeof(humidity_t)
 
-typedef struct _infrared {
+typedef struct infrared {
     float infrared[NUMBER_INFRARED];
 } infrared_t;
 #define LNG_INFRARED sizeof(infrared_t)
@@ -52,14 +44,14 @@ typedef struct autosend {
 typedef uint8_t enable_sensor_t;
 #define LNG_ENABLE_SENSOR sizeof(enable_sensor_t)
 
-#define ABSTRACT_PACKET_NAVIGATION              \
+#define ABSTRACT_MESSAGE_NAVIGATION             \
         sensor_t sensor;                        \
         humidity_t humidity;                    \
         infrared_t infrared;                    \
         parameter_sensor_t parameter_sensor;    \
         autosend_t enable_autosend;             \
         enable_sensor_t enable_sensor;          \
-        
+
 
 #define SENSOR 0
 #define INFRARED 1
@@ -85,4 +77,3 @@ static unsigned int hashmap_navigation[10];
                                       hashmap_navigation[ENABLE_SENSOR] = LNG_ENABLE_SENSOR;
 
 #endif	/* NAVIGATION_H */
-
