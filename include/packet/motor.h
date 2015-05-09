@@ -78,34 +78,58 @@ typedef struct _motor {
 #define LNG_MOTOR sizeof(motor_t)
 
 /**
- * Parameters definition for motor:
+ * Encoder parameters definition:
+ * - [ 0, 1] Position encoder respect to gear [0 after, 1 before]
  * - [#]     Encoder CPR
  * - [#]     Gear ratio
- * - [mV]    Supplied voltage in H-bridge
- * - [ 0, 1] Position encoder respect to gear [0 after, 1 before]
- * - [-1, 1] Positive versus of the rotation of the motor [-1 clockwise, 1 counterclockwise]
- * - [ 0, 1] Default logic value to enable the H-bridge [0 low, 1 high]
  */
 #define MOTOR_GEAR_ENC_AFTER 0
 #define MOTOR_GEAR_ENC_BEFORE 1
 #define MOTOR_ROTATION_CLOCKWISE -1
 #define MOTOR_ROTATION_COUNTERCLOCKWISE 1
-#define MOTOR_ENABLE_LOW 0
-#define MOTOR_ENABLE_HIGH 1
-typedef struct _motor_parameter {
+typedef struct _motor_parameter_encoder {
+    uint8_t position;
     uint16_t cpr;
     float ratio;
-    uint16_t volt_bridge;
-    uint8_t encoder_pos;
+} motor_parameter_encoder_t;
+#define LNG_MOTOR_PARAMETER_ENCODER sizeof(motor_parameter_encoder_t)
+
+/**
+ * Parameters definition for motor:
+ * - [mV]    Supplied voltage in H-bridge
+ * - [ 0, 1] Default logic value to enable the H-bridge [0 low, 1 high]
+ * - [XXX] TODO
+ * - [ 0, 1] Current sensor with sign [0 false, 1 true]
+ * - [XXX] TODO
+ */
+#define MOTOR_ENABLE_LOW 0
+#define MOTOR_ENABLE_HIGH 1
+typedef struct _motor_parameter_bridge {
+    uint16_t volt;
+    uint8_t enable;
+    int16_t dead_zone;
+    uint8_t signed_current;
+    float k_bemf;
+} motor_parameter_bridge_t;
+#define LNG_MOTOR_PARAMETER_BRIDGE sizeof(motor_parameter_bridge_t)
+
+/**
+ * Collection of parameters to configure bridge and encoder
+ * - Bridge configuration parameters
+ * - Encoder parameters
+ * - [-1, 1] Positive versus of the rotation of the motor [-1 clockwise, 1 counterclockwise]
+ */
+typedef struct _motor_parameter {
+    motor_parameter_bridge_t bridge;
+    motor_parameter_encoder_t encoder;
     int8_t rotation;
-    uint8_t enable_set;
 } motor_parameter_t;
 #define LNG_MOTOR_PARAMETER sizeof(motor_parameter_t)
 
 /**
  * Message for emergency configuration
  * - [s]  Time to put velocity motor to zero
- * - [s]  Time to disable bridge after the speed reaches velzer
+ * - [s]  Time to disable bridge after the speed reaches velocity is zero
  * - [ms] Timeout to start emergency stop of the motors
  */
 typedef struct _motor_emergency {
