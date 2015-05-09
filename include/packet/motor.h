@@ -25,10 +25,10 @@
  */
 #define STATE_CONTROL_EMERGENCY     -1  ///< Motors slow down to zero speed, then the bridge is turned off
 #define STATE_CONTROL_DISABLE       0   ///< Motors disabled
-#define STATE_CONTROL_DIRECT        1   ///< Motors controlled using direct PWM signals
-#define STATE_CONTROL_POSITION      2   ///< Motors controlled in position
-#define STATE_CONTROL_VELOCITY      3   ///< Motors controlled in velocity
-#define STATE_CONTROL_TORQUE        4   ///< Motors controller in torque
+#define STATE_CONTROL_POSITION      1   ///< Motors controlled in position
+#define STATE_CONTROL_VELOCITY      2   ///< Motors controlled in velocity
+#define STATE_CONTROL_TORQUE        3   ///< Motors controller in torque
+#define STATE_CONTROL_DIRECT        4   ///< Motors controlled using direct PWM signals
 
 /**
  * This union converts a command message in a motor index and type of command
