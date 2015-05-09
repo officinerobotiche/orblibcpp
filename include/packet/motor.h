@@ -92,14 +92,14 @@ typedef struct _motor_diagnostic {
  * Encoder parameters definition:
  * - [ 0, 1] Position encoder respect to gear [0 after, 1 before]
  * - [#]     Encoder CPR
- * - [#]     Gear ratio
+ * - [ 0, 1] Z-index [0 false, 1 true]
  */
 #define MOTOR_GEAR_ENC_AFTER 0
 #define MOTOR_GEAR_ENC_BEFORE 1
 typedef struct _motor_parameter_encoder {
     uint8_t position;
     uint16_t cpr;
-    float ratio;
+    uint8_t z_index;
 } motor_parameter_encoder_t;
 #define LNG_MOTOR_PARAMETER_ENCODER sizeof(motor_parameter_encoder_t)
 
@@ -127,6 +127,7 @@ typedef struct _motor_parameter_bridge {
  * - Bridge configuration parameters
  * - Encoder parameters
  * - [-1, 1] Positive versus of the rotation of the motor [-1 clockwise, 1 counterclockwise]
+ * - [#]     Gear ratio
  */
 #define MOTOR_ROTATION_CLOCKWISE -1
 #define MOTOR_ROTATION_COUNTERCLOCKWISE 1
@@ -134,6 +135,7 @@ typedef struct _motor_parameter {
     motor_parameter_bridge_t bridge;
     motor_parameter_encoder_t encoder;
     int8_t rotation;
+    float ratio;
 } motor_parameter_t;
 #define LNG_MOTOR_PARAMETER sizeof(motor_parameter_t)
 
