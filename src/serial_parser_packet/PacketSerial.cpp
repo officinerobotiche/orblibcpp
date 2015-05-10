@@ -13,7 +13,7 @@
  * Lesser General Public License for more details.
  */
 
-#include "PacketSerial.h"
+#include "serial_parser_packet/PacketSerial.h"
 
 #include <string>
 #include <algorithm>
@@ -79,6 +79,9 @@ PacketSerial::PacketSerial(const std::string& devname,
     pkg_parse = &PacketSerial::pkg_header;
     setReadCallback(boost::bind(&PacketSerial::readCallback, this, _1, _2));
     initMapError();
+
+    BufferTxSize = 64;
+    BufferTx = new unsigned char[BufferTxSize];
 }
 
 void PacketSerial::writePacket(packet_t packet, unsigned char header) {
@@ -90,7 +93,6 @@ void PacketSerial::writePacket(packet_t packet, unsigned char header) {
      */
 
     size_t size = HEAD_PKG + packet.length + 1;
-
     if( size > BufferTxSize )
     {
         BufferTxSize = size;
@@ -196,7 +198,7 @@ bool PacketSerial::pkg_header(unsigned char rxchar) {
 }
 
 bool PacketSerial::pkg_length(unsigned char rxchar) {
-    if (rxchar > MAX_RX_BUFF) {
+    if (rxchar > MAX_BUFF_RX) {
         throw (packet_exception(ERROR_LENGTH_STRING));
     } else {
         pkg_parse = &PacketSerial::pkg_data;
