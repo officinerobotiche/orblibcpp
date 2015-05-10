@@ -13,7 +13,7 @@
  * Lesser General Public License for more details.
  */
 
-#include "PacketSerial.h"
+#include "serial_parser_packet/PacketSerial.h"
 
 #include <string>
 #include <algorithm>

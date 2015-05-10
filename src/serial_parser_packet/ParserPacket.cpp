@@ -13,7 +13,7 @@
  * Lesser General Public License for more details.
  */
 
-#include "ParserPacket.h"
+#include "serial_parser_packet/ParserPacket.h"
 #include <boost/array.hpp>
 
 using namespace std;
