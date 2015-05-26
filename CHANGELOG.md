@@ -1,5 +1,17 @@
 # Change Log
 
+## [v0.5](https://github.com/officinerobotiche/orblibcpp/tree/v0.5) (2015-05-26)
+
+[Full Changelog](https://github.com/officinerobotiche/orblibcpp/compare/v0.4.1...v0.5)
+
+## [v0.4.1](https://github.com/officinerobotiche/orblibcpp/tree/v0.4.1) (2015-05-14)
+
+[Full Changelog](https://github.com/officinerobotiche/orblibcpp/compare/v0.4...v0.4.1)
+
+**Closed issues:**
+
+- Build experiment [\#2](https://github.com/officinerobotiche/orblibcpp/issues/2)
+
 ## [v0.4](https://github.com/officinerobotiche/orblibcpp/tree/v0.4) (2015-05-07)
 
 [Full Changelog](https://github.com/officinerobotiche/orblibcpp/compare/v0.1...v0.4)
