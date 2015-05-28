@@ -58,13 +58,18 @@ typedef struct _autosend {
 typedef uint8_t sensor_enable_t;
 #define LNG_SENSOR_ENABLE sizeof(sensor_enable_t)
 
-#define ABSTRACT_MESSAGE_NAVIGATION             \
-        sensor_t sensor;                        \
-        sensor_humidity_t sensor_humidity;      \
-        sensor_infrared_t sensor_infrared;      \
-        sensor_parameter_t sensor_parameter;    \
-        sensor_autosend_t sensor_autosend;      \
-        sensor_enable_t sensor_enable;          \
+
+/**
+ * List of all navigation messages
+ */
+typedef union _navigation_frame {
+    sensor_t sensor;
+    sensor_humidity_t humidity;
+    sensor_infrared_t infrared;
+    sensor_parameter_t parameter;
+    sensor_autosend_t autosend;
+    sensor_enable_t enable;
+} navigation_frame_u;
 
 //Number association for standard messages
 #define SENSOR 0

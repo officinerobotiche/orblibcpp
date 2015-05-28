@@ -21,10 +21,10 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-    
+
 // Type of serial errors
 #define MAX_BUFF_ERROR_SERIAL 13
-// Numbers of process names 
+// Numbers of process names
 #define MAX_BUFF_TASK_NAME 20
 // Dimension services buffer
 #define MAX_BUFF_SERVICE 20
@@ -89,12 +89,16 @@ typedef struct _system_task_name {
 } system_task_name_t;
 #define LNG_SYSTEM_TASK_NAME sizeof(system_task_name_t)
 
-//List of all system messages
-#define ABSTRACT_MESSAGE_SYSTEM system_task_name_t system_task_name;          \
-                                system_task_t system_task;                    \
-                                system_service_t system_service;              \
-                                system_error_serial_t system_error_serial;    \
-                                system_parameter_t system_parameter;
+/**
+ * List of all system messages
+ */
+typedef union _system_frame {
+    system_task_name_t task_name;
+    system_task_t task;
+    system_service_t service;
+    system_error_serial_t error_serial;
+    system_parameter_t parameter;
+} system_frame_u;
 
 //Number association for standard messages
 #define SYSTEM_SERVICE          0

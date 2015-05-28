@@ -72,6 +72,16 @@ typedef struct _velocity {
 typedef int8_t motion_state_t;
 #define LNG_MOTION_STATE sizeof(motion_state_t)
 
+/**
+ * List of all motion messages
+ */
+typedef union _motion_frame {
+    motion_coordinate_t coordinate;
+    motion_parameter_unicycle_t parameter_unicycle;
+    motion_velocity_t velocity;
+    motion_state_t state;
+} motion_frame_u;
+
 //Numbers associated for motion messages
 #define MOTION_COORDINATE 0
 #define MOTION_VEL 1
@@ -79,16 +89,12 @@ typedef int8_t motion_state_t;
 #define MOTION_STATE 3
 #define MOTION_VEL_REF 4
 
-//List of all motion messages
-#define ABSTRACT_MESSAGE_MOTION                                \
-        motion_coordinate_t motion_coordinate;                 \
-        motion_parameter_unicycle_t motion_parameter_unicycle; \
-        motion_velocity_t motion_velocity;                     \
-        motion_state_t motion_state;
-
 //Name for HASHMAP with information about motion messages
 #define HASHMAP_MOTION 'M'
 #define HASHMAP_MOTION_NUMBER 10
+
+// Definition on communication/parsing_packet.c
+//static unsigned int hashmap_motion[HASHMAP_MOTION_NUMBER];
 
 /**
  * Table with conversion number message in a length for data messages
@@ -98,5 +104,5 @@ typedef int8_t motion_state_t;
                                     hashmap_motion[MOTION_VEL_REF] = LNG_MOTION_VELOCITY;                        \
                                     hashmap_motion[MOTION_STATE] = LNG_MOTION_STATE;                             \
                                     hashmap_motion[MOTION_VEL] = LNG_MOTION_VELOCITY;
-                                    
+
 #endif	/* FRAMEMOTION_H */
