@@ -15,8 +15,8 @@
  * Public License for more details
  */
 
-#ifndef MOTOR_H
-#define	MOTOR_H
+#ifndef FRAMEMOTOR_H
+#define	FRAMEMOTOR_H
 
 #include <stdint.h>
 
@@ -198,9 +198,6 @@ typedef struct _motor_pid {
 #define HASHMAP_MOTOR 'G'
 #define HASHMAP_MOTOR_NUMBER 16
 
-// Definition on communication/parsing_packet.c
-static unsigned int hashmap_motor[HASHMAP_MOTOR_NUMBER];
-
 /**
  * Table with conversion number message in a length for data messages
  */
@@ -220,4 +217,4 @@ static unsigned int hashmap_motor[HASHMAP_MOTOR_NUMBER];
                                     hashmap_motor[MOTOR_TORQUE_PID] = LNG_MOTOR_PID;                      \
                                     hashmap_motor[MOTOR_TORQUE_REF] = LNG_MOTOR_CONTROL;
 
-#endif	/* MOTOR_H */
+#endif	/* FRAMEMOTOR_H */

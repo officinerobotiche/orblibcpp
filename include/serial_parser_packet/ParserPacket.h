@@ -88,6 +88,11 @@ private:
 
     boost::mutex readPacketMutex;
     boost::shared_ptr<ParserPacketImpl> parser_impl;
+
+    unsigned int hashmap_system[HASHMAP_SYSTEM_NUMBER];
+    unsigned int hashmap_motor[HASHMAP_MOTOR_NUMBER];
+    unsigned int hashmap_motion[HASHMAP_MOTION_NUMBER];
+    unsigned int hashmap_navigation[HASHMAP_NAVIGATION_NUMBER];
 };
 
 #endif	/* PARSERPACKET_H */

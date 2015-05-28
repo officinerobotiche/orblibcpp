@@ -109,9 +109,9 @@ private:
 
 ParserPacket::ParserPacket() : PacketSerial(), parser_impl(new ParserPacketImpl) {
     HASHMAP_SYSTEM_INITIALIZE
-    INITIALIZE_HASHMAP_MOTION
+    HASHMAP_MOTION_INITIALIZE
     HASHMAP_MOTOR_INITIALIZE
-    INITIALIZE_HASHMAP_NAVIGATION
+    HASHMAP_NAVIGATION_INITIALIZE
     setAsyncPacketCallback(&ParserPacket::actionAsync, this);
 }
 
@@ -123,9 +123,9 @@ ParserPacket::ParserPacket(const std::string& devname,
         asio::serial_port_base::stop_bits opt_stop)
 : PacketSerial(devname, baud_rate, opt_parity, opt_csize, opt_flow, opt_stop), parser_impl(new ParserPacketImpl) {
     HASHMAP_SYSTEM_INITIALIZE
-    INITIALIZE_HASHMAP_MOTION
+    HASHMAP_MOTION_INITIALIZE
     HASHMAP_MOTOR_INITIALIZE
-    INITIALIZE_HASHMAP_NAVIGATION
+    HASHMAP_NAVIGATION_INITIALIZE
     setAsyncPacketCallback(&ParserPacket::actionAsync, this);
 }
 
