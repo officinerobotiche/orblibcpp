@@ -5,19 +5,19 @@ PATH = $$PWD
 INCLUDEPATH += $$PATH/include
 
 HEADERS += \
-    $$PATH/include/AsyncSerial.h \
-    $$PATH/include/AsyncSerial.cpp \
-    $$PATH/include/PacketSerial.cpp \
-    $$PATH/include/ParserPacket.cpp \
-    $$PATH/include/packet/packet.h \
-    $$PATH/include/packet/motion.h \
-    $$PATH/include/packet/navigation.h \
-    ../../orblibcpp/orblibcpp/include/packet/motor.h
+    $$PATH/include/serial_parser_packet/AsyncSerial.h \
+    $$PATH/include/serial_parser_packet/AsyncSerial.h \
+    $$PATH/include/serial_parser_packet/ParserPacket.h \
+    $$PATH/include/packet/frame_motion.h \
+    $$PATH/include/packet/frame_motor.h \
+    $$PATH/include/packet/frame_navigation.h \
+    $$PATH/include/packet/frame_system.h \
+    $$PATH/include/packet/packet.h
 
 SOURCES += \
-    $$PATH/src/AsyncSerial.cpp \
-    $$PATH/src/PacketSerial.cpp \
-    $$PATH/src/ParserPacket.cpp
+    $$PATH/src/serial_parser_packet/AsyncSerial.cpp \
+    $$PATH/src/serial_parser_packet/PacketSerial.cpp \
+    $$PATH/src/serial_parser_packet/ParserPacket.cpp
 
 linux {
     LIBS += \
