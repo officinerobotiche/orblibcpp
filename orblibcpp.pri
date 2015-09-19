@@ -12,12 +12,14 @@ HEADERS += \
     $$PATH/include/packet/frame_motor.h \
     $$PATH/include/packet/frame_navigation.h \
     $$PATH/include/packet/frame_system.h \
-    $$PATH/include/packet/packet.h
+    $$PATH/include/packet/packet.h \
+    $$PATH/include/interface/unavinterface.h
 
 SOURCES += \
     $$PATH/src/serial_parser_packet/AsyncSerial.cpp \
     $$PATH/src/serial_parser_packet/PacketSerial.cpp \
-    $$PATH/src/serial_parser_packet/ParserPacket.cpp
+    $$PATH/src/serial_parser_packet/ParserPacket.cpp \
+    $$PATH/src/interface/unavinterface.cpp	
 
 linux {
     LIBS += \
