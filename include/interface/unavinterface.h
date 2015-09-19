@@ -25,14 +25,13 @@ public:
     bool enableSpeedControl(uint8_t motIdx, bool enable );
 
     bool getMotorSpeed( uint8_t motIdx, double& outSpeed );
+    bool getPIDGains(uint8_t motIdx, double& kp, double& ki, double& kd );
+    bool getSpeedRef( uint8_t motIdx, double& outSpeed  );
 
 protected:
 
 private:
-    bool connected;
-
     ParserPacket* _uNav; ///< uNav communication object
-
 };
 
 #endif // UNAVINTERFACE_H

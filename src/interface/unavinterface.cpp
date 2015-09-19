@@ -1,4 +1,4 @@
-#include "unavinterface.h"
+#include "interface/unavinterface.h"
 
 #include <stdio.h>
 
@@ -149,13 +149,12 @@ bool UNavInterface::enableSpeedControl(uint8_t motIdx, bool enable )
 
 bool UNavInterface::getMotorSpeed( uint8_t motIdx, double& outSpeed )
 {
+    motor_command_map_t command;
+
+    command.bitset.command = MOTOR_MEASURE;
+    command.bitset.motor = motIdx;
     try
     {
-        motor_command_map_t command;
-
-        command.bitset.command = MOTOR_MEASURE;
-        command.bitset.motor = motIdx;
-
         packet_information_t send = _uNav->createPacket( command.command_message, PACKET_REQUEST, HASHMAP_MOTOR);
         packet_t received = _uNav->sendSyncPacket( _uNav->encoder(send), 3, boost::posix_time::millisec(200) );
 
@@ -186,6 +185,152 @@ bool UNavInterface::getMotorSpeed( uint8_t motIdx, double& outSpeed )
                     case 1:
                         motor1 = first.message.motor.motor;
                         outSpeed = ((double)motor1.velocity)/1000.0;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    catch( parser_exception& e)
+    {
+        cout << "Serial error: " << e.what() << endl;
+
+        throw e;
+        return false;
+    }
+    catch( boost::system::system_error& e)
+    {
+        cout << "Serial error: " << e.what() << endl;
+
+        throw e;
+        return false;
+    }
+    catch(...)
+    {
+        cout << "Serial error: Unknown error";
+
+        throw;
+        return false;
+    }
+
+    return true;
+}
+
+bool UNavInterface::getSpeedRef( uint8_t motIdx, double& outSpeed )
+{
+    motor_command_map_t command;
+
+    command.bitset.command = MOTOR_VEL_REF;
+    command.bitset.motor = motIdx;
+
+    try
+    {
+        packet_information_t send = _uNav->createPacket( command.command_message, PACKET_REQUEST, HASHMAP_MOTOR);
+        packet_t received = _uNav->sendSyncPacket( _uNav->encoder(send), 3, boost::posix_time::millisec(200) );
+
+        // parse packet
+        vector<packet_information_t> list = _uNav->parsing(received);
+
+        //get first packet
+        packet_information_t first = list.at(0);
+
+        if(first.option == PACKET_DATA)
+        {
+            if(first.type == HASHMAP_MOTOR)
+            {
+                motor_control_t ref0, ref1;
+                motor_command_map_t command;
+                command.command_message = first.command;
+
+                if(command.bitset.command == MOTOR_VEL_REF )
+                {
+                    switch(command.bitset.motor)
+                    {
+                    case 0:
+
+                        ref0 = first.message.motor.reference;
+                        outSpeed = ((double)ref0)/1000.0;
+                        break;
+
+                    case 1:
+                        ref1 = first.message.motor.reference;
+                        outSpeed = ((double)ref1)/1000.0;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    catch( parser_exception& e)
+    {
+        cout << "Serial error: " << e.what() << endl;
+
+        throw e;
+        return false;
+    }
+    catch( boost::system::system_error& e)
+    {
+        cout << "Serial error: " << e.what() << endl;
+
+        throw e;
+        return false;
+    }
+    catch(...)
+    {
+        cout << "Serial error: Unknown error";
+
+        throw;
+        return false;
+    }
+
+    return true;
+}
+
+bool UNavInterface::getPIDGains(uint8_t motIdx, double& kp, double& ki, double& kd )
+{
+    motor_command_map_t command;
+
+    command.bitset.command = MOTOR_VEL_PID;
+    command.bitset.motor = motIdx;
+
+    try
+    {
+        packet_information_t send = _uNav->createPacket( command.command_message, PACKET_REQUEST, HASHMAP_MOTOR);
+        packet_t received = _uNav->sendSyncPacket( _uNav->encoder(send), 3, boost::posix_time::millisec(200) );
+
+        // parse packet
+        vector<packet_information_t> list = _uNav->parsing(received);
+
+        //get first packet
+        packet_information_t first = list.at(0);
+
+        if(first.option == PACKET_DATA)
+        {
+            if(first.type == HASHMAP_MOTOR)
+            {
+                motor_pid_t pid0, pid1;
+                motor_command_map_t command;
+                command.command_message = first.command;
+
+                if(command.bitset.command == MOTOR_VEL_PID )
+                {
+                    switch(command.bitset.motor)
+                    {
+                    case 0:
+                        pid0 = first.message.motor.pid;
+                        kp = pid0.kp;
+                        ki = pid0.ki;
+                        kd = pid0.kd;
+
+                        break;
+
+                    case 1:
+                        pid1 = first.message.motor.pid;
+                        kp = pid1.kp;
+                        ki = pid1.ki;
+                        kd = pid1.kd;
                         break;
                     }
                 }
